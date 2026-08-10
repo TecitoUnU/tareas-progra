@@ -1,63 +1,42 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <Image
+            source={require('../../assets/images/icon.png')}
+            style={styles.avatar}
           />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+          <View style={styles.studentInfo}>
+            <Text style={styles.name}>Miguel Angel Lool Ortiz</Text>
+            <Text style={styles.carnet}>Carné: 0907-25-13633</Text>
+            <Text style={styles.career}>Ingeniería en Sistemas</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        <View style={styles.details}>
+          <View style={styles.detail}>
+            <Text style={styles.label}>Universidad</Text>
+            <Text style={styles.value}>Universidad Mariano Gálvez</Text>
+          </View>
+
+          <View style={styles.detail}>
+            <Text style={styles.label}>Facultad</Text>
+            <Text style={styles.value}>Facultad de Ingeniería</Text>
+          </View>
+
+          <View style={styles.detail}>
+            <Text style={styles.label}>Estado</Text>
+            <Text style={styles.value}>Estudiante activo</Text>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 }
 
@@ -65,34 +44,74 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  card: {
+    width: '100%',
+    maxWidth: 500,
+    padding: 24,
+    margin: 10,
+    borderRadius: 16,
+    backgroundColor: '#0044ffa1',
+  },
+
+  header: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
-  safeArea: {
+
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 45,
+    marginRight: 20,
+  },
+
+  studentInfo: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
   },
-  title: {
-    textAlign: 'center',
+
+  name: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  code: {
-    textTransform: 'uppercase',
+
+  carnet: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  career: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
-});
+
+  divider: {
+    height: 1,
+    marginVertical: 20,
+    backgroundColor: '#000000',
+  },
+
+  details: {
+    flexDirection: 'column',
+  },
+
+  detail: {
+    marginBottom: 14,
+  },
+
+  label: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginBottom: 3,
+  },
+
+  value: {
+    fontSize: 15,
+  },
+}); 
