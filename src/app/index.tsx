@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function HomeScreen() {
   return (
@@ -33,6 +33,14 @@ export default function HomeScreen() {
           <View style={styles.detail}>
             <Text style={styles.label}>Estado</Text>
             <Text style={styles.value}>Estudiante activo</Text>
+            <Pressable
+              style={({ hovered }) => [
+                styles.boton,
+                hovered && styles.botonHover,
+              ]}
+            >
+              <Text style={styles.botonTexto}>Ver proyectos</Text>
+            </Pressable>
           </View>
         </View>
       </View>
@@ -48,6 +56,24 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
+  boton: {
+    backgroundColor: '#0044ff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+
+  botonHover: {
+    backgroundColor: '#002dbb',
+  },
+
+  botonTexto: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   card: {
     width: '100%',
     maxWidth: 500,
